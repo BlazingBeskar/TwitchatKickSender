@@ -20,7 +20,7 @@ This project integrates Kick chat messages with OBS Studio using the OBS WebSock
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repository(or you can just download the [BBeskarKickSender.ts](./bbeskarkicksender.ts)):
    ```bash
    git clone https://github.com/BlazingBeskar/TwitchatKickSender.git
    cd TwitchatKickSender
