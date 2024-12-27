@@ -36,6 +36,7 @@ function sendCustomKickChatMessage(messageDetails: {
     user: { name: string; color: string; avatarUrl?: string };
     icon?: string;
     style?: "message" | "highlight" | "error";
+    col?: number;
 }): void {
     const eventData = {
         origin: "twitchat", // Keep it as Twitchat since you're using their API
@@ -46,6 +47,7 @@ function sendCustomKickChatMessage(messageDetails: {
             user: messageDetails.user,
             icon: messageDetails.icon ?? "kick", // Set the icon to something indicative of Kick
             style: messageDetails.style ?? "message", // Normal message style (no highlights)
+            col: messageDetails.col ?? 0, //Specify the column number the message goes to. Default 0(first)
         },
     };
 
