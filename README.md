@@ -34,6 +34,10 @@ This project integrates Kick chat messages with OBS Studio using the OBS WebSock
 3. Update configuration:
    - Edit the `ip`, `port`, and `pass` variables in the script to match your OBS WebSocket settings.
    - Replace `your-kick-channel` in `createClient` with your Kick channel name.
+   - Update the Column Number to send the message into. (defaults to first column)
+   ```bash
+   col: messageDetails.col ?? 0, //Specify the column number the message goes to. Default 0(first)
+   ```
 
 4. Run the script
 
