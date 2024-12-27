@@ -52,6 +52,13 @@ const port: number = 4455;
 const pass: string = "your-password";
 ```
 
+### Twitchat Column Configuration
+Set the Column Number to send the messages into. (defaults to first column):
+
+```typescript
+col: messageDetails.col ?? 0, //Specify the column number the message goes to. Default 0(first)
+```
+
 ### Kick Chat Client Configuration
 Set up a Kick chat client in read-only mode to listen to chat messages:
 
