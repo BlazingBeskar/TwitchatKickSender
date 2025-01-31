@@ -66,6 +66,13 @@ Set up a Kick chat client in read-only mode to listen to chat messages:
 CHANNEL: "your-channel-name",
 ```
 
+### Message Color Configuration
+Change the color messages form kick chat show as (default is Kick's brand color):
+
+```typescript
+DEFAULT_COLOR: "#00FF00",
+```
+
 ### Example Logs
 When the script runs successfully, you should see logs similar to the following:
 
