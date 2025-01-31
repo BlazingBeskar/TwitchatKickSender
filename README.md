@@ -47,13 +47,9 @@ This project integrates Kick chat messages with Twitchat using the OBS WebSocket
 The script connects to OBS Studio using the WebSocket API with the following configuration:
 
 ```typescript
-const CONFIG = {
-    OBS: {
         IP: "127.0.0.1",
         PORT: 4455,
         PASSWORD: "your-password",
-    },
-};
 ```
 
 ### Message Column Configuration
