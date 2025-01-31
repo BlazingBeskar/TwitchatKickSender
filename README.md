@@ -1,15 +1,15 @@
-# Kick-Twitchat.fr Chat Integration
+# Kick-OBS Chat Integration
 
-This project integrates Kick chat messages with OBS Studio using the OBS WebSocket API. It listens to chat messages from a Kick channel and sends them to OBS as custom events, enabling dynamic interactions during live streams.
+This project integrates Kick chat messages with Twitchat using the OBS WebSocket API. It listens to chat messages from a Kick channel and sends them to OBS as custom events, enabling dynamic interactions during live streams.
 
 **Credit is Appreciated but not required, Happy Streaming!**
 
 ## Features
 
 - **Kick Chat Integration**: Reads chat messages from a specified Kick channel.
-- **Twitchat WebSocket Connection**: Sends custom events to twitchat.fr, enabling on-screen overlays and notifications.
-- **Dynamic Messaging**: Supports custom user names, avatars, and message styles for twitchat events.
-- **Reconnection Logic**: Automatically attempts to reconnect to twitchat API if the connection is lost.
+- **OBS WebSocket Connection**: Sends the Kick Chat messages to Twitchat, enabling easier multi-streaming.
+- **Dynamic Messaging**: Supports custom user names, logos and message styles for chat messages.
+- **Reconnection Logic**: Automatically attempts to reconnect to OBS WebSocket if the connection is lost.
 
 ## Requirements
 
@@ -20,7 +20,7 @@ This project integrates Kick chat messages with OBS Studio using the OBS WebSock
 
 ## Installation
 
-1. Clone the repository(or you can just download the [BBeskarKickSender.ts](./bbeskarkicksender.ts)):
+1. Clone the repository (or download the script file directly):
    ```bash
    git clone https://github.com/BlazingBeskar/TwitchatKickSender.git
    cd TwitchatKickSender
@@ -32,14 +32,14 @@ This project integrates Kick chat messages with OBS Studio using the OBS WebSock
    ```
 
 3. Update configuration:
-   - Edit the `ip`, `port`, and `pass` variables in the script to match your OBS WebSocket settings.
-   - Replace `your-kick-channel` in `createClient` with your Kick channel name.
-   - Update the Column Number to send the message into. (defaults to first column)
-   ```bash
-   col: messageDetails.col ?? 0, //Specify the column number the message goes to. Default 0(first)
-   ```
+   - Edit the `CONFIG` object in the script to match your OBS WebSocket settings.
+   - Enter your Kick channel name in the configuration.
+   - Adjust column number to specify where messages appear (defaults to first column).
 
-4. Run the script
+4. Run the script:
+   ```bash
+   node your-script-file.ts
+   ```
 
 ## Code Overview
 
@@ -47,41 +47,27 @@ This project integrates Kick chat messages with OBS Studio using the OBS WebSock
 The script connects to OBS Studio using the WebSocket API with the following configuration:
 
 ```typescript
-const ip: string = "127.0.0.1";
-const port: number = 4455;
-const pass: string = "your-password";
+const CONFIG = {
+    OBS: {
+        IP: "127.0.0.1",
+        PORT: 4455,
+        PASSWORD: "your-password",
+    },
+};
 ```
 
-### Twitchat Column Configuration
-Set the Column Number to send the messages into. (defaults to first column):
+### Message Column Configuration
+Set the column number to send the messages into (defaults to first column):
 
 ```typescript
-col: messageDetails.col ?? 0, //Specify the column number the message goes to. Default 0(first)
+DEFAULT_COLUMN: 0,
 ```
 
-### Kick Chat Client Configuration
+### Kick Chat Configuration
 Set up a Kick chat client in read-only mode to listen to chat messages:
 
 ```typescript
-const client = createClient("your-kick-channel", { logger: true, readOnly: true });
-```
-
-### Reconnection Logic
-The `connect` function handles reconnection attempts to OBS WebSocket if the connection is lost:
-
-```typescript
-async function connect(ip: string, port: number, pass: string): Promise<boolean> {
-    // Implementation of reconnection logic
-}
-```
-
-### Chat Message Handling
-Incoming chat messages are processed and sent to OBS as custom events:
-
-```typescript
-function handleChatMessage(username: string, content: string) {
-    // Process the chat message and trigger OBS events
-}
+CHANNEL: "your-channel-name",
 ```
 
 ### Example Logs
@@ -98,7 +84,6 @@ New message from username: Hello, world!
 ### Security Notice
 - **Do not share** your OBS WebSocket password publicly.
 - Replace sensitive details such as passwords and channel names with placeholders when sharing the code.
-
 
 ---
 
