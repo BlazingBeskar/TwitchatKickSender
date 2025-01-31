@@ -1,36 +1,54 @@
 import OBSWebSocket from 'obs-websocket-js';
 import { createClient } from "@retconned/kick-js";
 
-// OBS WebSocket Configuration
-const ip: string = "127.0.0.1"; // OBS WebSocket IP
-const port: number = 4455; // OBS WebSocket Port
-const pass: string = "your-password"; // OBS WebSocket Password
+/****************************************************
+ * CONFIGURATION SETTINGS
+ ****************************************************/
+const CONFIG = {
+    OBS: {
+        IP: "127.0.0.1", // If you are using it locally this should be fine
+        PORT: 4455, // Default port for OBS websockets
+        PASSWORD: "your-password", // can be found in OBS > Tools > Websocket_Server_Settings > Show_Connect_Info
+    },
+    KICK: {
+        CHANNEL: "your-channel-name", // Your kick channel name
+        LOGGER: true, // Don't change these unless you know what you are doing!
+        READ_ONLY: true, // Don't change these unless you know what you are doing!
+    },
+    MESSAGE: {
+        DEFAULT_COLOR: "#00FF00", // Chat message color to appear on twitchat (default is kick brand color)
+        DEFAULT_AVATAR: "https://www.kick.com/user-avatar.png", // This should stay like this
+        DEFAULT_ICON: "kick", // Logo that shows up next to the message
+        DEFAULT_STYLE: "message", // Don't change these unless you know what you are doing!
+        DEFAULT_COLUMN: 0, // Column number to adjust where messages appear (starts from 0, so 1. column is 0)
+    }
+};
+
+// OBS WebSocket & Kick Chat Client Initialization
 const obs = new OBSWebSocket();
+const client = createClient(CONFIG.KICK.CHANNEL, { logger: CONFIG.KICK.LOGGER, readOnly: CONFIG.KICK.READ_ONLY });
 
-// Kick Chat Client Configuration
-const client = createClient("your-kick-channel", { logger: true, readOnly: true }); // Use readOnly mode (no login required)
-
-/**
- * Connect to OBS WebSocket with reconnection logic.
- */
-async function connect(ip: string, port: number, pass: string): Promise<boolean> {
+/****************************************************
+ * OBS WEBSOCKET CONNECTION HANDLING
+ ****************************************************/
+async function connectToOBS(): Promise<boolean> {
     try {
-        await obs.connect(`ws://${ip}:${port}`, pass, { rpcVersion: 1 });
+        await obs.connect(`ws://${CONFIG.OBS.IP}:${CONFIG.OBS.PORT}`, CONFIG.OBS.PASSWORD, { rpcVersion: 1 });
         console.log("Connected to OBS WebSocket.");
         return true;
     } catch (error) {
         console.error("Failed to connect to OBS:", error);
         setTimeout(() => {
             console.log("Retrying connection to OBS...");
-            connect(ip, port, pass); // Reconnect after 5 seconds
+            connectToOBS();
         }, 5000);
         return false;
     }
 }
 
-/**
- * Send a user message from Kick chat to Twitchat interface with dynamic user and message parameters
- */
+/****************************************************
+ * SEND MESSAGE TO OBS VIA CUSTOM EVENT
+ ****************************************************/
 function sendCustomKickChatMessage(messageDetails: {
     message: string;
     user: { name: string; color: string; avatarUrl?: string };
@@ -39,15 +57,15 @@ function sendCustomKickChatMessage(messageDetails: {
     col?: number;
 }): void {
     const eventData = {
-        origin: "twitchat", // Keep it as Twitchat since you're using their API
+        origin: "twitchat",
         type: "CUSTOM_CHAT_MESSAGE",
         data: {
             message: messageDetails.message,
-            canClose: false,  // Remove the close button
+            canClose: false,
             user: messageDetails.user,
-            icon: messageDetails.icon ?? "kick", // Set the icon to something indicative of Kick
-            style: messageDetails.style ?? "message", // Normal message style (no highlights)
-            col: messageDetails.col ?? 0, //Specify the column number the message goes to. Default 0(first)
+            icon: messageDetails.icon ?? CONFIG.MESSAGE.DEFAULT_ICON,
+            style: messageDetails.style ?? CONFIG.MESSAGE.DEFAULT_STYLE,
+            col: messageDetails.col ?? CONFIG.MESSAGE.DEFAULT_COLUMN,
         },
     };
 
@@ -56,45 +74,39 @@ function sendCustomKickChatMessage(messageDetails: {
     });
 }
 
-/**
- * Handle incoming chat messages from Kick and send to OBS via the sendCustomKickChatMessage function
- */
+/****************************************************
+ * PROCESS INCOMING CHAT MESSAGES FROM KICK
+ ****************************************************/
 function handleChatMessage(username: string, content: string) {
     console.log(`New message from ${username}: ${content}`);
 
-    // Send the message to the sendCustomKickChatMessage function
-    const user = {
-        name: username,
-        color: "#00FF00",  // Default color
-        avatarUrl: "https://www.kick.com/user-avatar.png",
-    };
-
     sendCustomKickChatMessage({
         message: content,
-        user: user,
-        icon: "kick", // Custom icon for Kick
-        style: "message", // Normal message style
+        user: {
+            name: username,
+            color: CONFIG.MESSAGE.DEFAULT_COLOR,
+            avatarUrl: CONFIG.MESSAGE.DEFAULT_AVATAR,
+        },
+        icon: CONFIG.MESSAGE.DEFAULT_ICON,
+        style: CONFIG.MESSAGE.DEFAULT_STYLE as "message" | "highlight" | "error",
     });
 }
 
-// Listen for chat messages from Kick (no login required since we're using `readOnly: true`)
+/****************************************************
+ * KICK CHAT EVENT LISTENERS
+ ****************************************************/
 client.on("ready", () => {
-    console.log(`Bot ready & connected to Kick channel ${client.user?.tag}!`);
+    console.log(`Bot ready & connected to Kick channel ${CONFIG.KICK.CHANNEL}!`);
 });
 
-// Event listener for new chat messages
 client.on("ChatMessage", async (message) => {
-    // Process the chat message
     console.log(`${message.sender.username}: ${message.content}`);
-
-    // Handle the chat message
     handleChatMessage(message.sender.username, message.content);
 });
 
-// Connect to OBS WebSocket and send an initial message
-connect(ip, port, pass).then(() => {
-    // Example of sending a dynamic message to Kick chat through OBS
-    const username = "BBeskarKickSender";
-    const message = "Succesfully Connected to Kick Chat!";
-    handleChatMessage(username, message);  // Call with username and message parameters
+/****************************************************
+ * START CONNECTION & INITIAL MESSAGE
+ ****************************************************/
+connectToOBS().then(() => {
+    handleChatMessage("BBeskarKickSender", "Successfully Connected to Kick Chat!");
 });
