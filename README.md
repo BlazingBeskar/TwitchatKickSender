@@ -4,6 +4,8 @@ This project integrates Kick chat messages with [Twitchat](https://twitchat.fr) 
 
 **Credit is Appreciated but not required, Happy Streaming!**
 
+[Twitchat](https://twitchat.fr) is developed by Durss, if you would like to, please support them for their amazing work.
+
 ## Features
 
 - **Kick Chat Integration**: Reads chat messages from a specified Kick channel.
