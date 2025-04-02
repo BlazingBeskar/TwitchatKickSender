@@ -5,6 +5,7 @@ This project integrates Kick chat messages with [Twitchat](https://twitchat.fr) 
 **Credit is Appreciated but not required, Happy Streaming!**
 
 To Clarify: This script is an unofficial addition
+
 [Twitchat](https://twitchat.fr) is developed by [Durss](https://patreon.com/durss), if you would like to, please support them for their amazing work.
 
 ## Features
