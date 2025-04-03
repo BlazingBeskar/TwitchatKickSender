@@ -1,3 +1,29 @@
+## 🚀 Looking for an Easier Way?
+
+> 🆕 A full **desktop app version** of this tool is now available!
+
+If you're not comfortable running scripts or using the terminal, check out the new **Kick Chat Connector for Twitchat** — a user-friendly app with a full interface that connects Kick chat to OBS with **zero setup hassle**.
+
+**✅ No terminal**  
+**✅ No scripts**  
+**✅ Real-time chat + style customization**  
+**✅ Built-in column picker, color selector, and icon options**  
+**✅ Auto-connects to OBS and Kick**
+
+👉 **[Download the app here](https://github.com/BlazingBeskar/kick-chat-connector/releases)**
+
+_Developed with ❤️ by [BlazingBeskar](https://github.com/BlazingBeskar)_
+
+---
+
+### 🖼️ App Preview
+
+> Here's what the new app looks like:
+
+![Kick Chat Connector App Preview](https://github.com/user-attachments/assets/0e45ef9e-4060-496d-b396-dd320ebf0b26)
+
+---
+
 # Twitchat-Kick Chat Integration
 
 This project integrates Kick chat messages with [Twitchat](https://twitchat.fr) using the OBS WebSocket API. It listens to chat messages from a Kick channel and sends them to OBS as custom events, enabling dynamic interactions during live streams.
