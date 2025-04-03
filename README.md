@@ -6,7 +6,7 @@
 
 > 🆕 A full **desktop app version** of this tool is now available!
 
-If you're not comfortable running scripts or using the terminal, check out the new **Kick Chat Connector for Twitchat** — a user-friendly app with a full interface that connects Kick chat to OBS with **zero setup hassle**.
+If you're not comfortable running scripts or using the terminal, check out the new **Kick Chat Connector for Twitchat** — a user-friendly app with a full interface that connects Kick chat to Twitchat with **zero setup hassle**.
 
 **✅ No terminal**  
 **✅ No scripts**  
