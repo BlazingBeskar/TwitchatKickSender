@@ -1,3 +1,7 @@
+## ⚠️ Notice: This Script Now Has a better app version that does not require any editing the codes. Check it out Below ⬇️
+
+---
+
 ## 🚀 Looking for an Easier Way?
 
 > 🆕 A full **desktop app version** of this tool is now available!
