@@ -28,7 +28,7 @@ _Developed with ❤️ by [BlazingBeskar](https://github.com/BlazingBeskar)_
 
 ---
 
-# Twitchat-Kick Chat Integration
+# Twitchat-Kick Chat Integration Script ""(OLD)""
 
 This project integrates Kick chat messages with [Twitchat](https://twitchat.fr) using the OBS WebSocket API. It listens to chat messages from a Kick channel and sends them to OBS as custom events, enabling dynamic interactions during live streams.
 
