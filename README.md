@@ -10,7 +10,7 @@ If you're not comfortable running scripts or using the terminal, check out the n
 **✅ Built-in column picker, color selector, and icon options**  
 **✅ Auto-connects to OBS and Kick**
 
-👉 **[Download the app here](https://github.com/BlazingBeskar/kick-chat-connector/releases)**
+👉 **[Download the app here](https://github.com/BlazingBeskar/kick-twitchat-connector)**
 
 _Developed with ❤️ by [BlazingBeskar](https://github.com/BlazingBeskar)_
 
