@@ -1,4 +1,4 @@
-## ⚠️ Notice: This Script Now Has a better app version that does not require any editing the codes. Check it out Below ⬇️
+## ⚠️ Notice: This Script Now Has a better app version that does not require any editing in the codes. Check it out Below ⬇️
 
 ---
 
